@@ -1,0 +1,38 @@
+// dependency < 6
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DemoPage(),
+    );
+  }
+}
+
+class DemoPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RaisedButton(
+            child: Center(child: Text('Go to web!')),
+            onPressed: () async {
+              final url = 'https://flutter.dev';
+              if(await canLaunch('$url')) {
+                launch('$url');
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
