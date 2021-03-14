@@ -1,0 +1,51 @@
+//web_scraper: '0.0.9'
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:web_scraper/web_scraper.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DemoPage(),
+    );
+  }
+}
+
+class DemoPage extends StatefulWidget {
+  @override
+  _DemoPageState createState() => _DemoPageState();
+}
+
+class _DemoPageState extends State<DemoPage> {
+  List<Map<String, dynamic>> elements;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RaisedButton(
+            child: Center(child: Text('Go to web!')),
+            onPressed: () async {
+              final webScraper = WebScraper('https://webscraper.io');
+              if (await webScraper.loadWebPage('/test-sites/e-commerce/allinone')) {
+                elements = webScraper.getElement(
+                  'html > body > noscript', ['src'],
+                );
+                setState(() {});
+                print(elements);
+              }
+            },
+          ),
+          Text('${elements}'),
+        ],
+      ),
+    );
+  }
+}
