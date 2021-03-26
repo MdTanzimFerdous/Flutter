@@ -1,0 +1,229 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import './screen/main_drawer.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'QR & Barcode Scanner',
+      home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+        accentColor: Colors.white,
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  Widget bigCircle = new Container(
+    width: 100,
+    height: 100,
+    decoration: BoxDecoration(
+      gradient: RadialGradient(
+        colors: [
+          Color.fromRGBO(3, 235, 255, 1),
+          Color.fromRGBO(152, 70, 242, 1)
+
+          /*Colors.blue[900],
+          Colors.blue[800],
+          Colors.blue[700],
+          Colors.blue[600],*/
+        ],
+        radius: 1.0,
+      ),
+      boxShadow: [
+        BoxShadow(blurRadius: 2),
+      ],
+      //borderRadius: BorderRadius.circular(360),
+    ),
+    // child: const Image(
+    //   image: AssetImage(
+    //     'lib/assets/images/main_background.jpg',
+    //   ),
+    //   fit: BoxFit.cover,
+    // ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    var sz = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Stack(
+        children: [
+          Image.asset(
+            "assets/images/lk.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            /*appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: Text('QR & Barcode Scanner'),
+            elevation: 0,
+          ),*/
+            drawer: MainDrawer(),
+            body: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  decoration: new BoxDecoration(
+                    //color: Colors.red,
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(
+                          MediaQuery.of(context).size.width, 70),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(100),
+                      // bottomLeft: Radius.circular(50),
+                      // topLeft: Radius.circular(100),
+                    ),
+                    child: Image.asset(
+                      'assets/images/bg.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                ///2.3,
+                /*decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/bg.png"),
+                  ),
+                ),
+              ),*/
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        height: sz.height * 0.45,
+                        width: sz.width * 0.7,
+                        /* decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/bg.png"),
+                        ),
+                      ),*/
+                        child: GestureDetector(
+                          child: Column(
+                            children: [
+                              /* Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              )
+                            ],
+                          ),*/
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Text(
+                                'QR & BAR Code scanner!',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Image.asset('assets/images/qrcode.png'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                          onTap: () => {
+                            print("Card tapped."),
+                          },
+                        ),
+                      ),
+                    ),
+                    //bigCircle,
+                    /* Center(
+                  child: Container(
+                    height: sz.height * 0.5,
+                    width: sz.width * 0.7,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(70),
+                          bottomRight: Radius.circular(70),
+                        ),
+                      ),
+                      child: Image.asset('assets/images/qrcode.png'),
+                      color: Theme.of(context).primaryColor,
+                      elevation: 29,
+                    ),
+                  ),
+                ),*/
+                    SizedBox(
+                      height: 20,
+                    ),
+                    /* Center(
+                      child: Text(
+                        'Tap Here To Scan!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),*/
+                    Text(
+                      ' Choose ACTION:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        /*Container(
+                        height: 200,
+                        width: 200,
+                        child: CircleAvatar(
+                          child: Image.asset('assets/images/qr_g.png'),
+                        ),
+                      ),*/
+                        Container(
+                          height: 200.0,
+                          decoration: new BoxDecoration(
+                            //color: Colors.red,
+                            borderRadius: BorderRadius.vertical(
+                              bottom: Radius.elliptical(
+                                MediaQuery.of(context).size.width,
+                                double.infinity,
+                              ),
+                            ),
+                          ),
+                          //child: Image.asset('assets/images/qr_g.png'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
